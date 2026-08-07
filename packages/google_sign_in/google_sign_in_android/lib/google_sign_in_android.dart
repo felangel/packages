@@ -272,6 +272,8 @@ class GoogleSignInAndroid extends GoogleSignInPlatform {
           case AuthorizeFailureType.authorizeFailure:
             message = 'Authorization failed: $message';
             code = GoogleSignInExceptionCode.unknownError;
+          case AuthorizeFailureType.apiException when result.message?.contains('[16]') ?? false:
+            code = GoogleSignInExceptionCode.canceled;
           case AuthorizeFailureType.apiException:
             message = 'SDK reported an exception: $message';
             code = GoogleSignInExceptionCode.unknownError;
